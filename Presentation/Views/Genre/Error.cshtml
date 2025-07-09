@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Error";
+}
+
+<div class="d-flex flex-row justify-content-center mt-4">
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">It cannot be!</h4>
+        <p>It is not possible to delete this genre because it is being used as a primary genre.</p>
+        <hr>
+        <div class="d-flex flex-row justify-content-end p-0 m-0">
+            <a asp-controller="Genre" asp-action="Index" class="btn btn-secondary btn-sm mb-0">Go back</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+﻿@using ItlaTv.Core.Application.ViewModels.Producers;
+
+@model CreateProducerViewModel
+
+@{
+    ViewData["Title"] = "Remove: Production House";
+}
+
+<div class="row">
+    <div class="col-6 offset-3">
+        <div class="card">
+            <div class="card-header bg-danger bg-gradient text-light">
+                <h4>Are you sure you want to remove @Model.Name?</h4>
+            </div>
+            <div class="card-body">
+                <form method="post" asp-controller="Producer" asp-action="RemoveProducer">
+                    <input type="hidden" asp-for="Id" />
+                    <div class="d-flex flex-row justify-content-end gap-2">
+                        <button type="submit" class="btn btn-success">Yes</button>
+                        <a asp-controller="Producer" asp-action="Index" class="btn btn-secondary">No</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <span class="text-danger">@Model.Name series will be eliminated</span>
+    </div>
+</div>

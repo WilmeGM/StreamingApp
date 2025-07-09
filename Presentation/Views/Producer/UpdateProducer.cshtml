@@ -1,0 +1,34 @@
+﻿@using ItlaTv.Core.Application.ViewModels.Producers;
+
+@model CreateProducerViewModel
+
+@{
+    ViewData["Title"] = "Update: Production House";
+}
+
+<div class="row">
+    <div class="col-6 offset-3">
+        <div class="card">
+            <div class="card-header bg-dark bg-gradient text-light">
+                <h4>Updating a new production house</h4>
+            </div>
+            <div class="card-body">
+                <form method="post" asp-controller="Producer" asp-action="UpdateProducer">
+
+                    <div class="mb-3">
+                        <label asp-for="Name" class="form-label">Name: </label>
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                        <input type="text" asp-for="Name" class="form-control">                        
+                    </div>
+
+                    <input type="hidden" asp-for="Id" />
+
+                    <div class="d-flex flex-row justify-content-end gap-2">
+                        <button type="submit" class="btn btn-success">Update it</button>
+                        <a asp-controller="Producer" asp-action="Index" class="btn btn-secondary">Go back</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

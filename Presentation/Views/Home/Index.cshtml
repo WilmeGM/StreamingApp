@@ -1,0 +1,159 @@
+﻿@using ItlaTv.Core.Application.ViewModels.Series;
+@using ItlaTv.Core.Application.ViewModels.Producers;
+@using ItlaTv.Core.Application.ViewModels.Genres;
+
+@model List<SerieViewModel>
+
+@{
+    ViewData["Title"] = "Home";
+}
+
+<style>
+    .card .card-img-top {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-4">
+            <div class="card">
+                <div class="card-header bg-dark bg-gradient">
+                    <h5 class="text-white text-center" data-bs-toggle="collapse" data-bs-target="#filterByName" style="cursor: pointer;">
+                        Filter by name
+                        <i class="bi bi-chevron-down"></i>
+                    </h5>
+                </div>
+                <div id="filterByName" class="collapse">
+                    <div class="card-body">
+                        <form method="post" asp-controller="Home" asp-action="Index" class="d-flex flex-row justify-content-between">
+                            <div>
+                                <label for="name">Name: </label>
+                                <input id="name" name="Name" type="text" placeholder="Enter serie name" />
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-sm">Search it</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <div class="card">
+                <div class="card-header bg-dark bg-gradient">
+                    <h5 class="text-white text-center" data-bs-toggle="collapse" data-bs-target="#filterByProducers" style="cursor: pointer;">
+                        Filter by Producers
+                        <i class="bi bi-chevron-down"></i>
+                    </h5>
+                </div>
+                <div id="filterByProducers" class="collapse">
+                    <div class="card-body">
+                        <form method="post" asp-controller="Home" asp-action="Index" class="d-flex flex-column gap-1">
+
+                            <div class="mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" value="null" type="radio" name="ProducerId" id="producer-all" />
+                                    <label class="form-check-label" for="producer-all">All</label>
+                                </div>
+                            </div>
+
+                            @foreach (ProducerViewModel producer in ViewBag.Producers)
+                            {
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" value="@producer.Id" name="ProducerId" id="producer-@producer.Id">
+                                    <label class="form-check-label" for="producer-@producer.Id">
+                                        @producer.Name
+                                    </label>
+                                </div>
+                            }
+
+                            <button type="submit" class="btn btn-primary btn-sm">Search it</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <div class="card">
+                <div class="card-header bg-dark bg-gradient">
+                    <h5 class="text-white text-center" data-bs-toggle="collapse" data-bs-target="#filterByGenres" style="cursor: pointer;">
+                        Filter by Genres
+                        <i class="bi bi-chevron-down"></i>
+                    </h5>
+                </div>
+                <div id="filterByGenres" class="collapse">
+                    <div class="card-body">
+                        <form method="post" asp-controller="Home" asp-action="Index" class="d-flex flex-column gap-1">
+
+                            <div class="mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" value="null" type="radio" name="GenreId" id="genre-all" />
+                                    <label class="form-check-label" for="genre-all">
+                                        All
+                                    </label>
+                                </div>
+                            </div>
+
+                            @foreach (GenreViewModel genre in ViewBag.Genres)
+                            {
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" value="@genre.Id" name="GenreId" id="genre-@genre.Id">
+                                    <label class="form-check-label" for="genre-@genre.Id">
+                                        @genre.Name
+                                    </label>
+                                </div>
+                            }
+
+                            <button type="submit" class="btn btn-primary btn-sm">Search it</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-dark bg-gradient">
+                    <h3 class="text-white text-center">Series</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        @if (Model.Count == 0)
+                        {
+                            <h2 class="text-center">Nothing created</h2>
+                        }
+                        else
+                        {
+                            @foreach (var serie in Model)
+                            {
+                                <div class="col-4 mb-3">
+                                    <div class="card shadow-sm">
+                                        <img src="@serie.ImageUrl" class="img-product-size bd-placeholder-img card-img-top " />
+
+                                        <div class="card-body">
+                                            <h3 class="serie-title">@serie.Name</h3>
+                                            <p class="card-text"><span style="font-weight: bold;">Production house: </span>@serie.Producer</p>
+                                            <p class="card-text"><span style="font-weight: bold;">Genres: </span>@serie.PrimaryGenre@serie.SecundaryGenre</p>
+
+                                            <div class="d-flex flex-row justify-content-center">
+                                                <a class="btn btn-primary" asp-controller="Home" asp-action="WatchSerie" asp-route-id="@serie.Id">Watch</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

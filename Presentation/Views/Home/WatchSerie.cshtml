@@ -1,0 +1,19 @@
+﻿@using ItlaTv.Core.Application.Helpers
+
+@model ItlaTv.Core.Application.ViewModels.Series.WatchSerieViewModel
+
+@{
+    ViewData["Title"] = "Serie: watch";
+}
+
+<div class="d-flex flex-row justify-content-center mt-2">
+    <h1>@Model.Name</h1>
+</div>
+
+<div class="d-flex flex-row justify-content-center mt-3">
+    <iframe src="@YoutubeHelper.GetYouTubeEmbedUrl(Model.VideoUrl)"
+    width="1120"
+    height="615"
+    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen></iframe>
+</div>

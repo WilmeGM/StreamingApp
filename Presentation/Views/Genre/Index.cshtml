@@ -1,0 +1,53 @@
+﻿@using ItlaTv.Core.Application.ViewModels.Genres;
+
+@model List<GenreViewModel>
+
+@{
+    ViewData["Title"] = "Maintenance: Genres";
+}
+
+<div class="d-flex flex-row justify-content-center mb-3">
+    <a class="" asp-controller="Genre" asp-action="CreateGenre">
+        <i class="bi bi-plus-circle-fill" style="font-size: 3rem; color: #28a745;" title="Add"></i>
+    </a>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-dark bg-gradient">
+                    <h3 class="text-white text-center">Genres maintenance</h3>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var genre in Model)
+                            {
+                                <tr>
+                                    <td>@genre.Name</td>
+                                    <td>
+                                        <div class="d-flex flex-row gap-4">
+                                            <a asp-controller="Genre" asp-action="UpdateGenre" asp-route-id="@genre.Id" class="">
+                                                <i class="bi bi-pencil-square" style="font-size: 2rem; color: #ffc107;" title="Edit"></i>
+                                            </a>
+                                            <a asp-controller="Genre" asp-action="RemoveGenre" asp-route-id="@genre.Id" class="">
+                                                <i class="bi bi-trash3-fill" style="font-size: 2rem; color: #dc3545;" title="Remove"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

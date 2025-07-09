@@ -1,0 +1,66 @@
+﻿@using ItlaTv.Core.Application.ViewModels.Series
+
+@model List<SerieViewModel>
+
+@{
+    ViewData["Title"] = "Maintenance: Series";
+}
+
+<style>
+    .card .card-img-top {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+</style>
+
+<div class="d-flex flex-row justify-content-center mb-3">
+    <a asp-controller="Serie" asp-action="CreateSerie">
+        <i class="bi bi-plus-circle-fill" style="font-size: 3rem; color: #28a745;"></i>
+    </a>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-dark bg-gradient">
+                    <h3 class="text-white text-center">TV shows maintenance</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        @if (Model.Count == 0)
+                        {
+                            <h2 class="text-center">Nothing created</h2>
+                        }
+                        else
+                        {
+                            @foreach (var serie in Model)
+                            {
+                                <div class="col-4 mb-3">
+                                    <div class="card shadow-sm">
+                                        <img src="@serie.ImageUrl" class="card-img-top" />
+
+                                        <div class="card-body">
+                                            <h3 class="serie-title">@serie.Name</h3>
+                                            <p class="card-text"><span style="font-weight: bold;">Production house: </span>@serie.Producer</p>
+                                            <p class="card-text"><span style="font-weight: bold;">Genres: </span>@serie.PrimaryGenre@serie.SecundaryGenre</p>
+                                            <div class="d-flex flex-row justify-content-end gap-3">
+                                                <a asp-controller="Serie" asp-action="UpdateSerie" asp-route-id="@serie.Id" class="">
+                                                    <i class="bi bi-pencil-square" style="font-size: 2rem; color: #ffc107;"></i>
+                                                </a>
+                                                <a asp-controller="Serie" asp-action="RemoveSerie" asp-route-id="@serie.Id" class="">
+                                                    <i class="bi bi-trash3-fill" style="font-size: 2rem; color: #dc3545;"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

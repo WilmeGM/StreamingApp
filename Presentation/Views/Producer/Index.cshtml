@@ -1,0 +1,53 @@
+﻿@using ItlaTv.Core.Application.ViewModels.Producers;
+
+@model List<ProducerViewModel>
+
+@{
+    ViewData["Title"] = "Maintenance: Production House";
+}
+
+<div class="d-flex flex-row justify-content-center mb-3">
+    <a class="" asp-controller="Producer" asp-action="CreateProducer">
+        <i class="bi bi-plus-circle-fill" style="font-size: 3rem; color: #28a745;" title="Add"></i>
+    </a>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-dark bg-gradient">
+                    <h3 class="text-white text-center">Production houses maintenance</h3>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach(var producer in Model)
+                            {
+                                <tr>
+                                    <td>@producer.Name</td>
+                                    <td>
+                                        <div class="d-flex flex-row gap-4">
+                                            <a asp-controller="Producer" asp-action="UpdateProducer" asp-route-id="@producer.Id" class="">
+                                                <i class="bi bi-pencil-square" style="font-size: 2rem; color: #ffc107;" title="Edit"></i>
+                                            </a>
+                                            <a asp-controller="Producer" asp-action="RemoveProducer" asp-route-id="@producer.Id" class="">
+                                                <i class="bi bi-trash3-fill" style="font-size: 2rem; color: #dc3545;" title="Remove"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

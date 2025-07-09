@@ -1,0 +1,93 @@
+﻿@using ItlaTv.Core.Application.ViewModels.Series
+
+@model CreateSerieViewModel
+
+@{
+    ViewData["Title"] = "Update: Serie";
+}
+
+@if (ViewBag.EqualsGenres is not null)
+{
+    @if (ViewBag.EqualsGenres)
+    {
+        <div class="d-flex flex-row justify-content-center mb-3">
+            <div class="alert alert-danger" role="alert">
+                The primary genre must be different from secundary genre!
+            </div>
+        </div>
+    }
+}
+
+<div class="row">
+    <div class="col-6 offset-3">
+        <div class="card">
+            <div class="card-header bg-dark bg-gradient text-light">
+                <h4>Updating a serie</h4>
+            </div>
+            <div class="card-body">
+                <form method="post" asp-controller="Serie" asp-action="UpdateSerie">
+
+                    <div class="mb-3">
+                        <label asp-for="Name" class="form-label">Name: </label>
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                        <input type="text" asp-for="Name" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="ImageUrl" class="form-label">Image url: </label>
+                        <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                        <input type="text" asp-for="ImageUrl" class="form-control">                        
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="VideoUrl" class="form-label">Video url: </label>
+                        <span asp-validation-for="VideoUrl" class="text-danger"></span>
+                        <input type="text" asp-for="VideoUrl" class="form-control">                        
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="ProducerId" class="form-label">Producer home: </label>
+                        <span asp-validation-for="ProducerId" class="text-danger"></span>
+                        <select asp-for="ProducerId" class="form-select">
+                            <option value="">Seleccione una opción</option>
+                            @foreach (var producer in Model.Producers)
+                            {
+                                <option value="@producer.Id">@producer.Name</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="PrimaryGenreId" class="form-label">Primary genre: </label>
+                        <span asp-validation-for="PrimaryGenreId" class="text-danger"></span>
+                        <select id="PrimaryGenreId" asp-for="PrimaryGenreId" class="form-select" onchange="updateSelect2()">
+                            <option value="">Seleccione una opción</option>
+                            @foreach (var genre in Model.Genres)
+                            {
+                                <option value="@genre.Id">@genre.Name</option>
+                            }
+                        </select>                        
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="SecundaryGenreId" class="form-label">Secundary genre: </label>
+                        <select id="SecundaryGenreId" asp-for="SecundaryGenreId" class="form-select">
+                            <option value="">Seleccione una opción</option>
+                            @foreach (var genre in Model.Genres)
+                            {
+                                <option value="@genre.Id">@genre.Name</option>
+                            }
+                        </select>
+                    </div>
+
+                    <input type="hidden" asp-for="Id" />
+
+                    <div class="d-flex flex-row justify-content-end gap-2">
+                        <button type="submit" class="btn btn-success">Update it</button>
+                        <a asp-controller="Serie" asp-action="Index" class="btn btn-secondary">Go back</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
